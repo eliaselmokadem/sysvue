@@ -77,4 +77,24 @@ export default {
 
 - [C/C++ addons, Node.js modules - Pre-Bundling](https://github.com/electron-vite/vite-plugin-electron-renderer#dependency-pre-bundling)
 - [dependencies vs devDependencies](https://github.com/electron-vite/vite-plugin-electron-renderer#dependencies-vs-devdependencies)
-# sysvue
+
+# SysVue
+
+SysVue is a simple system dashboard built with Vue 3 and Electron, powered by the electron-vite-vue boilerplate.  
+It provides real-time system information like CPU, memory, and network usage, and allows you to ping hosts from a GUI.
+
+## Features
+
+🖥️ Get detailed system information (CPU, memory, platform, architecture, etc.)  
+📡 Built-in host pinging tool to check network connectivity  
+🎨 Modern layout with a Spotify-style theme using custom CSS  
+🧩 Modular component structure for easy expansion and maintenance  
+⚡ Fast and lightweight thanks to Vite and Vue 3  
+
+## Getting Started
+
+Once you've cloned and installed (npm i/npm install) the `electron-vite-vue` project:
+
+```sh
+# Start the app
+npm run dev
