@@ -3,6 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const si = require('systeminformation');
 const ping = require('ping');
+const find = require('local-devices');
 
 let win;
 
@@ -33,4 +34,16 @@ ipcMain.handle('get-system-info', async () => {
 ipcMain.handle('ping-host', async (_, host) => {
   const res = await ping.promise.probe(host);
   return res;
+});
+
+ipcMain.handle('getConnectedDevices', async () => {
+  const devices = await find();  // Voert echte netwerk scan uit
+  // Voeg eventueel status toe
+  const formattedDevices = devices.map(dev => ({
+    ip: dev.ip,
+    mac: dev.mac,
+    hostname: dev.name || 'Unknown',
+    status: 'Online' // Default waarde; eventueel meer gedetailleerd checken
+  }));
+  return formattedDevices;
 });
