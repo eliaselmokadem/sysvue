@@ -4,7 +4,13 @@
 
     <!-- Systeeminformatie -->
     <section>
-      <div class="card">
+      <div
+        class="card"
+        ref="container"
+        :style="{
+          transform: `rotateX(${roll * SCALE_CONSTANT}deg) rotateY(${tilt * SCALE_CONSTANT}deg)`
+        }"
+      >
         <h2 @click="showSystemInfo = !showSystemInfo" style="cursor: pointer;">
           Systeeminformatie {{ showSystemInfo ? '▲' : '▼' }}
         </h2>
@@ -29,7 +35,11 @@
 
     <!-- Ping Tool -->
     <section>
-      <div class="card">
+      <div class="card"
+      ref="container"
+        :style="{
+          transform: `rotateX(${roll * SCALE_CONSTANT}deg) rotateY(${tilt * SCALE_CONSTANT}deg)`
+        }">
         <h2 @click="showPingTool = !showPingTool" style="cursor: pointer;">
           Ping Tool {{ showPingTool ? '▲' : '▼' }}
         </h2>
@@ -56,20 +66,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import NetworkMonitoring from './components/NetworkMonitoring.vue';
 
-
+const container = ref(null);
 const info = ref<any>(null);
 const host = ref('');
 const pingResult = ref<any>(null);
-
+const SCALE_CONSTANT = -10;
 const showSystemInfo = ref(true);
 const showPingTool = ref(true);
-
 const isLoadingSystemInfo = ref(false);
 const isPinging = ref(false);
+const roll = ref(0);
+const tilt = ref(0);
+const targetRoll = ref(0);
+const targetTilt = ref(0);
 
+
+onMounted(() => {
+  window.addEventListener("mousemove", (e) => {
+    const x = (e.clientX / window.innerWidth) - 0.5;
+    const y = (e.clientY / window.innerHeight) - 0.5;
+    targetTilt.value = x * 2;
+    targetRoll.value = y * 2;
+  });
+
+  // Smooth animation loop
+  const animate = () => {
+    roll.value += (targetRoll.value - roll.value) * 0.1;
+    tilt.value += (targetTilt.value - tilt.value) * 0.1;
+    requestAnimationFrame(animate);
+  };
+  animate();
+});
 const load = async () => {
   isLoadingSystemInfo.value = true;
   const data = await window.electronAPI.getSystemInfo();
@@ -89,6 +119,45 @@ const ping = async () => {
 </script>
 
 <style scoped>
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.card {
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}
+
+
+button {
+  background-color: #61dafb;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:disabled {
+  background-color: #444;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #1db954;
+}
+
 .loading-bar {
   height: 4px;
   width: 100%;
