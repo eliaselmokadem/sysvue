@@ -2,7 +2,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  getSystemInfo: () => ipcRenderer.invoke('getSystemInfo'),
-  pingHost: (host) => ipcRenderer.invoke('pingHost', host),
+  getSystemInfo: () => ipcRenderer.invoke('get-system-info'),
+  pingHost: (host) => ipcRenderer.invoke('ping-host', host),
   getConnectedDevices: () => ipcRenderer.invoke('getConnectedDevices'),  // Al toegevoegd
 });
