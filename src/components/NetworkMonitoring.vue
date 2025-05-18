@@ -117,14 +117,12 @@ const container = ref(null);
   }
   
   .card {
-  background-color: #1e1e1e;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease-out;
-  will-change: transform;
-}
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  }
 
   
   .card.visible {

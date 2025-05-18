@@ -62,12 +62,19 @@
     <section>
       <NetworkMonitoring />
     </section>
+    <!-- Internet Snelheid -->
+    <section>
+      <InternetSpeedTest />
+    </section>
+
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import NetworkMonitoring from './components/NetworkMonitoring.vue';
+import InternetSpeedTest from './components/InternetSpeedtest.vue';
+
 
 const container = ref(null);
 const info = ref<any>(null);

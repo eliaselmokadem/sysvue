@@ -42,6 +42,9 @@
     "vue-tsc": "^2.0.6"
   },
   "dependencies": {
-    "local-devices": "^4.0.0"
+    "fast-speedtest-api": "^0.3.2",
+    "local-devices": "^4.0.0",
+    "node-fetch": "^3.3.2",
+    "speedtest-net": "^2.2.0"
   }
 }
