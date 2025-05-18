@@ -44,6 +44,18 @@
     hostname?: string;
     status: string;
   }
+
+    // Add type for window.electronAPI to include getConnectedDevices
+    interface ElectronAPI {
+    getSystemInfo: () => Promise<any>;
+    pingHost: (host: string) => Promise<any>;
+    getConnectedDevices: () => Promise<NetworkDevice[]>;
+  }
+  declare global {
+    interface Window {
+      electronAPI: ElectronAPI;
+    }
+  }
   
   onMounted(() => {
   window.addEventListener("mousemove", (e) => {
@@ -74,6 +86,8 @@ const container = ref(null);
     showDevices.value = !showDevices.value;
   };
   
+  
+
   const fetchDevices = async () => {
     loading.value = true;
     devices.value = await window.electronAPI.getConnectedDevices();
